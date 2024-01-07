@@ -5,7 +5,7 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import quicktype.WorkflowData
+
 
 suspend fun fetchVideo(id: Int): Video {
     val response = window
@@ -31,7 +31,7 @@ suspend fun fetchWorkflows(repoOwner: String, repoName: String): WorkflowData {
         .text()
         .await()
 
-//    console.log("GitHub API Response:", response)
+    console.log(response)
 
 //    return response
     return Json.decodeFromString(response)

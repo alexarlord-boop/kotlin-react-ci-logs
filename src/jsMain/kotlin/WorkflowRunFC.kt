@@ -8,7 +8,6 @@ import react.*
 import react.dom.*
 import emotion.react.css
 import kotlinx.coroutines.launch
-import quicktype.WorkflowRun
 import react.dom.html.ReactHTML.br
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
@@ -38,7 +37,7 @@ val WorkflowRunFC = FC<WorkflowRunsProps> { props ->
                     onClick = { props.onJobsFetch() }
 
                 }
-                +props.workflowRun.displayTitle
+                +props.workflowRun.headCommit.message
                 br()
                 +"Conclusion: ${props.workflowRun.conclusion}"
             }

@@ -3,7 +3,7 @@ import csstype.*
 import react.*
 import kotlinx.coroutines.*
 import emotion.react.css
-import quicktype.WorkflowRun
+
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.input
