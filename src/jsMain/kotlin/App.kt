@@ -66,44 +66,25 @@ val App = FC<Props> {
     // WORKFLOW LIST
     var jobsContent by useState("no jobs fetched")
 
-    div {
-        workflowList
-            .groupBy { it.name } // Group workflows by name
-            .forEach { (name, workflows) ->
-                // Render a div for each group
-                div {
-                    h2 {
-                        // Display the name of the group (workflow name)
-                        +name
-                    }
-                    workflows.forEach { workflow ->
-                        // Render WorkflowRunFC for each workflow in the group
-                        WorkflowRunFC {
-                            workflowRun = workflow
-                            onJobsFetch = {
-                                isLoadingJobs = true
-                                jobsModalShown = true
-                                jobsContent = ""
 
-
-                                mainScope.launch {
-                                    try {
-                                        // Fetch jobs
-                                        jobsContent = fetchJobs(workflow.jobsURL)
-                                    } finally {
-                                        // Set loading to false when the asynchronous operation completes
-                                        isLoadingJobs = false
-                                    }
-                                }
-                            }
-                        }
-                    }
+    WorkflowArea {
+        workflows = workflowList
+        onJobsFetchFunction = { workflow ->
+            isLoadingJobs = true
+            jobsModalShown = true
+            jobsContent = ""
+            mainScope.launch {
+                try {
+                    jobsContent = fetchJobs(workflow.jobsURL)
+                } finally {
+                    isLoadingJobs = false
                 }
             }
+        }
     }
 
-    // MODAL WINDOW
 
+    // MODAL WINDOW: WORKFLOW JOBS INFO
     Modal {
         show = jobsModalShown
         onHide = closeModal
@@ -115,16 +96,12 @@ val App = FC<Props> {
             ModalTitle {
                 +"Modal Title"
             }
-
-
         }
 
         ModalBody {
             if (isLoadingJobs) {
-                // Show loading indicator (e.g., skeleton or spinner)
                 +"Loading..."
             } else {
-                // Show the fetched content
                 p {
                     +jobsContent
                 }
@@ -132,12 +109,10 @@ val App = FC<Props> {
         }
 
         ModalFooter {
-
             ReactButton {
                 +"close"
                 onClick = closeModal
             }
-
         }
     }
 
