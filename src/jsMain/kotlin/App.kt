@@ -1,13 +1,16 @@
 import bootstrapFC.*
 import csstype.*
+import emotion.react.Global
 import react.*
 import kotlinx.coroutines.*
 import emotion.react.css
+import react.dom.html.ReactHTML.body
 
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.p
 import react.dom.html.ReactHTML.input
 import react.dom.html.ReactHTML.h2
+import react.dom.html.ReactHTML.style
 
 val mainScope = MainScope()
 
