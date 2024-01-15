@@ -3,8 +3,6 @@
 // val json    = Json { allowStructuredMapKeys = true }
 // val welcome = json.parse(Welcome.serializer(), jsonString)
 
-package quicktype
-
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import kotlinx.serialization.descriptors.*
@@ -28,12 +26,12 @@ data class WorkflowRun (
     val nodeID: String,
 
     @SerialName("head_branch")
-    val headBranch: HeadBranch,
+    val headBranch: String,
 
     @SerialName("head_sha")
     val headSHA: String,
 
-    val path: Path,
+    val path: String,
 
     @SerialName("display_title")
     val displayTitle: String,
@@ -41,9 +39,9 @@ data class WorkflowRun (
     @SerialName("run_number")
     val runNumber: Long,
 
-    val event: Event,
-    val status: Status,
-    val conclusion: Conclusion,
+    val event: String,
+    val status: String,
+    val conclusion: String,
 
     @SerialName("workflow_id")
     val workflowID: Long,
@@ -117,11 +115,11 @@ data class WorkflowRun (
 
 @Serializable
 data class Actor (
-    val login: Login,
+    val login: String,
     val id: Long,
 
     @SerialName("node_id")
-    val nodeID: ActorNodeID,
+    val nodeID: String,
 
     @SerialName("avatar_url")
     val avatarURL: String,
@@ -161,56 +159,12 @@ data class Actor (
     @SerialName("received_events_url")
     val receivedEventsURL: String,
 
-    val type: Type,
+    val type: String,
 
     @SerialName("site_admin")
     val siteAdmin: Boolean
 )
 
-@Serializable
-enum class Login(val value: String) {
-    @SerialName("github-advanced-security[bot]") GithubAdvancedSecurityBot("github-advanced-security[bot]"),
-    @SerialName("simplesamlphp") Simplesamlphp("simplesamlphp"),
-    @SerialName("thijskh") Thijskh("thijskh"),
-    @SerialName("tvdijen") Tvdijen("tvdijen");
-}
-
-@Serializable
-enum class ActorNodeID(val value: String) {
-    @SerialName("MDEyOk9yZ2FuaXphdGlvbjU3NzQ2NDA=") MDEyOk9YZ2FuaXphdGlvbjU3NzQ2NDA("MDEyOk9yZ2FuaXphdGlvbjU3NzQ2NDA="),
-    @SerialName("MDM6Qm90NjIzMTA4MTU=") MDM6Qm90NjIzMTA4MTU("MDM6Qm90NjIzMTA4MTU="),
-    @SerialName("MDQ6VXNlcjM4MDg3OTI=") MDQ6VXNlcjM4MDg3OTI("MDQ6VXNlcjM4MDg3OTI="),
-    @SerialName("MDQ6VXNlcjg0MTA0NQ==") MDQ6VXNlcjg0MTA0NQ("MDQ6VXNlcjg0MTA0NQ==");
-}
-
-@Serializable
-enum class Type(val value: String) {
-    @SerialName("Bot") Bot("Bot"),
-    @SerialName("Organization") Organization("Organization"),
-    @SerialName("User") User("User");
-}
-
-@Serializable
-enum class Conclusion(val value: String) {
-    @SerialName("failure") Failure("failure"),
-    @SerialName("success") Success("success");
-}
-
-@Serializable
-enum class Event(val value: String) {
-    @SerialName("dynamic") Dynamic("dynamic"),
-    @SerialName("push") Push("push"),
-    @SerialName("schedule") Schedule("schedule");
-}
-
-@Serializable
-enum class HeadBranch(val value: String) {
-    @SerialName("master") Master("master"),
-    @SerialName("simplesamlphp-1.19") Simplesamlphp119("simplesamlphp-1.19"),
-    @SerialName("simplesamlphp-2.0") Simplesamlphp20("simplesamlphp-2.0"),
-    @SerialName("simplesamlphp-2.1") Simplesamlphp21("simplesamlphp-2.1"),
-    @SerialName("simplesamlphp-2.2") Simplesamlphp22("simplesamlphp-2.2");
-}
 
 @Serializable
 data class HeadCommit (
@@ -227,39 +181,23 @@ data class HeadCommit (
 
 @Serializable
 data class Author (
-    val name: Name,
-    val email: Email
+    val name: String,
+    val email: String
 )
 
-@Serializable
-enum class Email(val value: String) {
-    @SerialName("mail@zipixx.com") MailZipixxCOM("mail@zipixx.com"),
-    @SerialName("noreply@github.com") NoreplyGithubCOM("noreply@github.com"),
-    @SerialName("41898282+github-actions[bot]@users.noreply.github.com") The41898282GithubActionsBotUsersNoreplyGithubCOM("41898282+github-actions[bot]@users.noreply.github.com"),
-    @SerialName("thijs@kinkhorst.com") ThijsKinkhorstCOM("thijs@kinkhorst.com"),
-    @SerialName("tvdijen@gmail.com") TvdijenGmailCOM("tvdijen@gmail.com");
-}
 
-@Serializable
-enum class Name(val value: String) {
-    @SerialName("GitHub") GitHub("GitHub"),
-    @SerialName("github-actions") GithubActions("github-actions"),
-    @SerialName("Stefan P") StefanP("Stefan P"),
-    @SerialName("Thijs Kinkhorst") ThijsKinkhorst("Thijs Kinkhorst"),
-    @SerialName("Tim van Dijen") TimVanDijen("Tim van Dijen");
-}
 
 @Serializable
 data class Repository (
     val id: Long,
 
     @SerialName("node_id")
-    val nodeID: HeadRepositoryNodeID,
+    val nodeID: String,
 
-    val name: Login,
+    val name: String,
 
     @SerialName("full_name")
-    val fullName: FullName,
+    val fullName: String,
 
     val private: Boolean,
     val owner: Actor,
@@ -380,24 +318,7 @@ data class Repository (
     val deploymentsURL: String
 )
 
-@Serializable
-enum class FullName(val value: String) {
-    @SerialName("simplesamlphp/simplesamlphp") SimplesamlphpSimplesamlphp("simplesamlphp/simplesamlphp");
-}
 
-@Serializable
-enum class HeadRepositoryNodeID(val value: String) {
-    @SerialName("MDEwOlJlcG9zaXRvcnkxNzE2NzEzNg==") MDEwOlJlcG9ZaXRvcnkxNzE2NzEzNg("MDEwOlJlcG9zaXRvcnkxNzE2NzEzNg==");
-}
-
-@Serializable
-enum class Path(val value: String) {
-    @SerialName("dynamic/github-code-scanning/codeql") DynamicGithubCodeScanningCodeql("dynamic/github-code-scanning/codeql"),
-    @SerialName(".github/workflows/autolock-conversations.yml") GithubWorkflowsAutolockConversationsYml(".github/workflows/autolock-conversations.yml"),
-    @SerialName(".github/workflows/documentation.yml") GithubWorkflowsDocumentationYml(".github/workflows/documentation.yml"),
-    @SerialName(".github/workflows/php.yml") GithubWorkflowsPHPYml(".github/workflows/php.yml"),
-    @SerialName(".github/workflows/translations.yml") GithubWorkflowsTranslationsYml(".github/workflows/translations.yml");
-}
 
 @Serializable
 data class PullRequest (
@@ -410,8 +331,8 @@ data class PullRequest (
 
 @Serializable
 data class Base (
-    val ref: HeadBranch,
-    val sha: SHA,
+    val ref: String,
+    val sha: String,
     val repo: Repo
 )
 
@@ -419,17 +340,6 @@ data class Base (
 data class Repo (
     val id: Long,
     val url: String,
-    val name: Login
+    val name: String
 )
 
-@Serializable
-enum class SHA(val value: String) {
-    @SerialName("d4ce6b26b7aba3d31b6fdbf7f1d07b194a1b28f8") D4Ce6B26B7Aba3D31B6Fdbf7F1D07B194A1B28F8("d4ce6b26b7aba3d31b6fdbf7f1d07b194a1b28f8"),
-    @SerialName("28bbae2dc5d272bda323f2728ee6c8828d75bc0e") The28Bbae2Dc5D272Bda323F2728Ee6C8828D75Bc0E("28bbae2dc5d272bda323f2728ee6c8828d75bc0e"),
-    @SerialName("9ae476b514cb3312aa396463c2c058a5cd8dbcb5") The9Ae476B514Cb3312Aa396463C2C058A5Cd8Dbcb5("9ae476b514cb3312aa396463c2c058a5cd8dbcb5");
-}
-
-@Serializable
-enum class Status(val value: String) {
-    @SerialName("completed") Completed("completed");
-}

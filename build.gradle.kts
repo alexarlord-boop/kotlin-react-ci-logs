@@ -31,7 +31,6 @@ kotlin {
 
                 //Kotlin React Emotion (CSS) (chapter 3)
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion")
-
                 //Video Player (chapter 7)
                 implementation(npm("react-player", "2.12.0"))
 
@@ -43,7 +42,9 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
 
                 // Further improvement
-                 implementation(npm("react-bootstrap", "2.9.2"))
+                implementation(npm("react-bootstrap", "2.9.2"))
+                implementation(npm("react-bootstrap-icons", "1.10.3"))
+
 
                 implementation("org.webjars:bootstrap:5.2.3")
                 implementation("org.webjars.npm:bootstrap-icons:1.11.2")
