@@ -5,6 +5,8 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import org.w3c.files.File
+import web.http.Response
 
 
 suspend fun fetchVideo(id: Int): Video {
@@ -25,16 +27,27 @@ suspend fun fetchVideos(): List<Video> = coroutineScope {
 }
 
 suspend fun fetchWorkflows(repoOwner: String, repoName: String): WorkflowData {
-    val response = window
-        .fetch("https://api.github.com/repos/$repoOwner/$repoName/actions/runs")
-        .await()
-        .text()
-        .await()
+    // API DATA
+//    val response = window
+//        .fetch("https://api.github.com/repos/$repoOwner/$repoName/actions/runs")
+//        .await()
+//        .text()
+//        .await()
+//
+//    // console.log(response)
+//    return Json.decodeFromString(response)
 
-    console.log(response)
+    // LOCAL DATA
+    try {
+        // Fetch the local JSON file
+        val response: Response = window.fetch("workflows-test1.json").await()
+        val localData: String = response.text().await()
 
-//    return response
-    return Json.decodeFromString(response)
+        // Decode the JSON data
+        return Json.decodeFromString(localData)
+    } catch (e: Throwable) {
+        throw RuntimeException("Error fetching or decoding local data: ${e.message}")
+    }
 }
 
 suspend fun fetchJobs(jobsUrl: String): String {
